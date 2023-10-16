@@ -1702,7 +1702,7 @@ public class LExecutor{
 
     public static class SyncI implements LInstruction{
         //20 syncs per second
-        public static long syncInterval = 1000/20;
+        public static long syncInterval = 1000 / 20;
 
         public int variable;
 
