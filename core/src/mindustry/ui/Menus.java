@@ -116,16 +116,12 @@ public class Menus{
 
     @Remote(variants = Variant.both)
     public static void infoMessage(String message){
-        if(message == null) return;
-
-        ui.showText("", message);
+        return;;
     }
 
     @Remote(variants = Variant.both, unreliable = true)
     public static void infoPopup(String message, float duration, int align, int top, int left, int bottom, int right){
-        if(message == null) return;
-
-        ui.showInfoPopup(message, duration, align, top, left, bottom, right);
+        return;
     }
 
     @Remote(variants = Variant.both, unreliable = true)
