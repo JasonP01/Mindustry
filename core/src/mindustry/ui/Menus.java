@@ -116,7 +116,7 @@ public class Menus{
 
     @Remote(variants = Variant.both)
     public static void infoMessage(String message){
-        return;;
+        return;
     }
 
     @Remote(variants = Variant.both, unreliable = true)
