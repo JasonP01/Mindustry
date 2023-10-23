@@ -23,6 +23,7 @@ public class Weathers{
             sizeMin = 2.6f;
             density = 1200f;
             attrs.set(Attribute.light, -0.15f);
+            status = StatusEffects.freezing;
 
             sound = Sounds.windhowl;
             soundVol = 0f;
