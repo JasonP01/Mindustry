@@ -336,6 +336,8 @@ public class Block extends UnlockableContent implements Senseable{
     public boolean instantTransfer = false;
     /** Whether you can rotate this block after it is placed. */
     public boolean quickRotate = true;
+    /** If true, this derelict block can be repair by clicking it. */
+    public boolean allowDerelictRepair = true;
     /** Main subclass. Non-anonymous. */
     public @Nullable Class<?> subclass;
     /** Scroll position for certain blocks. */
@@ -648,7 +650,7 @@ public class Block extends UnlockableContent implements Senseable{
     public boolean canReplace(Block other){
         if(other.alwaysReplace) return true;
         if(other.privileged) return false;
-        return other.replaceable && (other != this || (rotate && quickRotate)) && this.group != BlockGroup.none && other.group == this.group &&
+        return other.replaceable && (other != this || (rotate && quickRotate)) && ((this.group != BlockGroup.none && other.group == this.group) || other == this) &&
             (size == other.size || (size >= other.size && ((subclass != null && subclass == other.subclass) || group.anyReplace)));
     }
 
