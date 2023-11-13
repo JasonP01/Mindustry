@@ -4,6 +4,10 @@
     "address": ["cn1.plush.run:10001","211.101.236.94:10000","bj-1.lcf.icu:10240","play.simpfun.cn:14523"]
   },
   {
+    "name": "Crux's Revelations",
+    "Address": ["fsn1.bbn.one:52397","fsn1.bbn.one:58375","de-free-01.hosts.optikservers.com:32212","fsn1.bbn.one:49840","de-free-01.hosts.optikservers.com:30449"]
+  },
+  {
     "name": "CMS",
     "address": ["195.2.84.144"]
   },
@@ -13,7 +17,7 @@
   },
   {
     "name": "ShardDustry",
-    "address": ["94.130.132.149:35689", "78.46.39.20:5552","45.158.9.198:30529"]
+    "address": ["94.130.132.149:35689", "45.158.9.198:31290","45.158.9.198:30529"]
   },
   {
     "name": "Tamazia",
@@ -68,12 +72,8 @@
     "address": ["51.81.57.217:33703"]
   },
   {
-    "name": "Omega Hub",
-    "address": ["130.61.214.19:6608", "130.61.78.82:3050", "130.61.78.82:6768", "130.61.214.19:6568", "130.61.214.19:6671", "130.61.214.19:6570", "130.61.214.19:6573", "130.61.214.19:6610", "130.61.214.19:6567", "130.61.214.19:6599", "130.61.214.19:6774", "130.61.214.19:6571", "130.61.214.19:6589"]
-  },
-  {
     "name": "KMWStudios",
-    "address": ["46.151.26.232:1024", "46.151.26.232:2000", "46.151.26.232:3000", "46.151.26.232:4000", "46.151.26.232:6000", "46.151.26.232:7000", "46.151.26.232:8000"]
+    "address": ["x.kmwstudios.xyz:9000", "x.kmwstudios.xyz:9002", "x.kmwstudios.xyz:9003", "x.kmwstudios.xyz:9004", "x.kmwstudios.xyz:9005", "x.kmwstudios.xyz:9006", "x.kmwstudios.xyz:9007"]
   },
   {
     "name": "XCore",
@@ -172,10 +172,6 @@
     "address": ["a55c81b7c4d6e6d604651a93f8af5cd83.asuscomm.com", "a55c81b7c4d6e6d604651a93f8af5cd83.asuscomm.com:6568", "a55c81b7c4d6e6d604651a93f8af5cd83.asuscomm.com:6569", "a55c81b7c4d6e6d604651a93f8af5cd83.asuscomm.com:6570", "a55c81b7c4d6e6d604651a93f8af5cd83.asuscomm.com:6571", "a55c81b7c4d6e6d604651a93f8af5cd83.asuscomm.com:6572", "a55c81b7c4d6e6d604651a93f8af5cd83.asuscomm.com:6573", "a55c81b7c4d6e6d604651a93f8af5cd83.asuscomm.com:6574"]
   },
   {
-    "name": "Vndustry",
-    "address": ["185.128.227.11", "27.50.72.82:25334"]
-  },
-  {
      "name": "Anana&ShenYv",
      "address": ["mdtleague.top"]
   },
@@ -222,7 +218,7 @@
   },
   {
     "name": "MeowIsland",
-    "address": ["n1.mindustry.me:6590", "n1.mindustry.me:6592", "n1.mindustry.me:6595"]
+    "address": ["nexus.minecraft.rent:25598", "nexus.minecraft.rent:25596", "jupiter.minecraft.rent:25651"]
   },
   {
     "name": "3MIDustry",
@@ -250,7 +246,7 @@
   },
   {
     "name": "XuwenHost",
-    "address": ["pi.xiyuchao.love:6567","mdt.xuwenblock.cn:6567"]
+    "address": ["mdt.xuwenblock.cn:6568","mdt.xuwenblock.cn:6567"]
   },
   {
     "name": "MineCore",
