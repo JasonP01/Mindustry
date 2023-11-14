@@ -887,6 +887,7 @@ public class Blocks{
             hasPower = true;
 
             consumePower(1.8f);
+            consumePowerBuffered(1.8f);
             consumeItem(Items.coal, 3);
             consumeLiquid(Liquids.water, 0.1f);
         }};
@@ -905,6 +906,7 @@ public class Blocks{
 
             consumeItems(with(Items.coal, 1, Items.sand, 2));
             consumePower(0.50f);
+            consumePowerBuffered(0.50f);
         }};
 
         siliconCrucible = new AttributeCrafter("silicon-crucible"){{
@@ -923,6 +925,7 @@ public class Blocks{
 
             consumeItems(with(Items.coal, 4, Items.sand, 6, Items.pyratite, 1));
             consumePower(4f);
+            consumePowerBuffered(4f);
         }};
 
         kiln = new GenericCrafter("kiln"){{
@@ -938,6 +941,7 @@ public class Blocks{
 
             consumeItems(with(Items.lead, 1, Items.sand, 1));
             consumePower(0.60f);
+            consumePowerBuffered(0.60f);
         }};
 
         plastaniumCompressor = new GenericCrafter("plastanium-compressor"){{
@@ -955,6 +959,7 @@ public class Blocks{
 
             consumeLiquid(Liquids.oil, 0.25f);
             consumePower(3f);
+            consumePowerBuffered(3f);
             consumeItem(Items.titanium, 2);
         }};
 
@@ -973,6 +978,7 @@ public class Blocks{
 
             consumeItems(with(Items.thorium, 4, Items.sand, 10));
             consumePower(5f);
+            consumePowerBuffered(5f);
             itemCapacity = 20;
         }};
 
@@ -987,6 +993,7 @@ public class Blocks{
             drawer = new DrawMulti(new DrawDefault(), new DrawFlame());
 
             consumePower(4f);
+            consumePowerBuffered(4f);
             consumeItems(with(Items.copper, 3, Items.lead, 4, Items.titanium, 2, Items.silicon, 3));
         }};
 
@@ -1007,6 +1014,7 @@ public class Blocks{
             lightLiquid = Liquids.cryofluid;
 
             consumePower(1f);
+            consumePowerBuffered(1f);
             consumeItem(Items.titanium);
             consumeLiquid(Liquids.water, 12f / 60f);
         }};
@@ -1021,6 +1029,7 @@ public class Blocks{
             size = 2;
 
             consumePower(0.20f);
+            consumePowerBuffered(0.20f);
             consumeItems(with(Items.coal, 1, Items.lead, 2, Items.sand, 2));
         }};
 
@@ -1034,6 +1043,7 @@ public class Blocks{
 
             consumeItems(with(Items.pyratite, 1, Items.sporePod, 1));
             consumePower(0.40f);
+            consumePowerBuffered(0.40f);
         }};
 
         melter = new GenericCrafter("melter"){{
@@ -1046,6 +1056,7 @@ public class Blocks{
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(), new DrawDefault());
 
             consumePower(1f);
+            consumePowerBuffered(1f);
             consumeItem(Items.scrap, 1);
         }};
 
@@ -1062,6 +1073,7 @@ public class Blocks{
             size = 2;
 
             consumePower(1.1f);
+            consumePowerBuffered(1.1f);
             consumeLiquid(Liquids.slag, 4f / 60f);
 
             drawer = new DrawMulti(new DrawRegion("-bottom"), new DrawLiquidTile(), new DrawRegion("-spinner", 3, true), new DrawDefault());
@@ -1081,6 +1093,7 @@ public class Blocks{
             itemCapacity = 20;
 
             consumePower(4f);
+            consumePowerBuffered(4f);
             consumeItem(Items.scrap);
             consumeLiquid(Liquids.slag, 0.12f);
 
@@ -1109,6 +1122,7 @@ public class Blocks{
 
             consumeItem(Items.sporePod, 1);
             consumePower(0.7f);
+            consumePowerBuffered(0.7f);
         }};
 
         pulverizer = new GenericCrafter("pulverizer"){{
@@ -1127,6 +1141,7 @@ public class Blocks{
 
             consumeItem(Items.scrap, 1);
             consumePower(0.50f);
+            consumePowerBuffered(0.50f);
         }};
 
         coalCentrifuge = new GenericCrafter("coal-centrifuge"){{
@@ -1140,6 +1155,7 @@ public class Blocks{
 
             consumeLiquid(Liquids.oil, 0.1f);
             consumePower(0.7f);
+            consumePowerBuffered(0.7f);
         }};
 
         incinerator = new Incinerator("incinerator"){{
@@ -1147,6 +1163,7 @@ public class Blocks{
             health = 90;
             envEnabled |= Env.space;
             consumePower(0.50f);
+            consumePowerBuffered(0.50f);
         }};
 
         //erekir
@@ -1170,6 +1187,7 @@ public class Blocks{
 
             consumeItems(with(Items.graphite, 1, Items.sand, 4));
             consumePower(6f);
+            consumePowerBuffered(6f);
         }};
 
         electrolyzer = new GenericCrafter("electrolyzer"){{
@@ -1186,6 +1204,7 @@ public class Blocks{
 
             consumeLiquid(Liquids.water, 10f / 60f);
             consumePower(1f);
+            consumePowerBuffered(1f);
 
             drawer = new DrawMulti(
                 new DrawRegion("-bottom"),
@@ -1233,6 +1252,7 @@ public class Blocks{
             researchCostMultiplier = 1.1f;
             liquidCapacity = 40f;
             consumePower(2f);
+            consumePowerBuffered(2f);
             ambientSound = Sounds.extractLoop;
             ambientSoundVolume = 0.06f;
 
@@ -1253,6 +1273,7 @@ public class Blocks{
             consumeLiquid(Liquids.ozone, 2f / 60f);
             consumeItem(Items.beryllium);
             consumePower(0.5f);
+            consumePowerBuffered(0.5f);
 
             rotateDraw = false;
 
@@ -1279,6 +1300,7 @@ public class Blocks{
             ambientSound = Sounds.hum;
             itemCapacity = 0;
             consumePower(100f / 60f);
+            consumePowerBuffered(100f / 60f);
         }};
         
         slagHeater = new HeatProducer("slag-heater"){{
@@ -1355,12 +1377,14 @@ public class Blocks{
 
             consumeItems(with(Items.tungsten, 2, Items.graphite, 3));
             consumePower(2f);
+            consumePowerBuffered(2f);
         }};
 
         slagCentrifuge = new GenericCrafter("slag-centrifuge"){{
             requirements(Category.crafting, BuildVisibility.debugOnly, with(Items.carbide, 70, Items.graphite, 60, Items.silicon, 40, Items.oxide, 40));
 
             consumePower(2f / 60f);
+            consumePowerBuffered(2f / 60f);
 
             size = 3;
             consumeItem(Items.sand, 1);
@@ -1422,6 +1446,7 @@ public class Blocks{
             //TODO consume hydrogen/ozone?
             consumeLiquid(Liquids.slag, 40f / 60f);
             consumePower(2f);
+            consumePowerBuffered(2f);
         }};
 
         cyanogenSynthesizer = new HeatCrafter("cyanogen-synthesizer"){{
@@ -1453,6 +1478,7 @@ public class Blocks{
             consumeLiquid(Liquids.arkycite, 40f / 60f);
             consumeItem(Items.graphite);
             consumePower(2f);
+            consumePowerBuffered(2f);
         }};
 
         phaseSynthesizer = new HeatCrafter("phase-synthesizer"){{
@@ -1486,6 +1512,7 @@ public class Blocks{
             consumeItems(with(Items.thorium, 2, Items.sand, 6));
             consumeLiquid(Liquids.ozone, 2f / 60f);
             consumePower(8f);
+            consumePowerBuffered(8f);
         }};
 
         heatReactor = new HeatProducer("heat-reactor"){{
@@ -1722,6 +1749,7 @@ public class Blocks{
         shieldedWall = new ShieldWall("shielded-wall"){{
             requirements(Category.defense, ItemStack.with(Items.phaseFabric, 20, Items.surgeAlloy, 12, Items.beryllium, 12));
             consumePower(3f / 60f);
+            consumePowerBuffered(3f / 60f);
 
             outputsPower = false;
             hasPower = true;
@@ -1738,6 +1766,7 @@ public class Blocks{
         mender = new MendProjector("mender"){{
             requirements(Category.effect, with(Items.lead, 30, Items.copper, 25));
             consumePower(0.3f);
+            consumePowerBuffered(0.3f);
             size = 1;
             reload = 200f;
             range = 40f;
@@ -1751,6 +1780,7 @@ public class Blocks{
         mendProjector = new MendProjector("mend-projector"){{
             requirements(Category.effect, with(Items.lead, 100, Items.titanium, 25, Items.silicon, 40, Items.copper, 50));
             consumePower(1.5f);
+            consumePowerBuffered(1.5f);
             size = 2;
             reload = 250f;
             range = 85f;
@@ -1763,6 +1793,7 @@ public class Blocks{
         overdriveProjector = new OverdriveProjector("overdrive-projector"){{
             requirements(Category.effect, with(Items.lead, 100, Items.titanium, 75, Items.silicon, 75, Items.plastanium, 30));
             consumePower(3.50f);
+            consumePowerBuffered(3.50f);
             size = 2;
             consumeItem(Items.phaseFabric).boost();
         }};
@@ -1770,6 +1801,7 @@ public class Blocks{
         overdriveDome = new OverdriveProjector("overdrive-dome"){{
             requirements(Category.effect, with(Items.lead, 200, Items.titanium, 130, Items.silicon, 130, Items.plastanium, 80, Items.surgeAlloy, 120));
             consumePower(10f);
+            consumePowerBuffered(10f);
             size = 3;
             range = 200f;
             speedBoost = 2.5f;
@@ -1790,6 +1822,7 @@ public class Blocks{
 
             itemConsumer = consumeItem(Items.phaseFabric).boost();
             consumePower(4f);
+            consumePowerBuffered(4f);
         }};
 
         shockMine = new ShockMine("shock-mine"){{
@@ -1809,6 +1842,7 @@ public class Blocks{
             researchCost = with(Items.silicon, 70, Items.graphite, 70);
 
             consumePower(0.6f);
+            consumePowerBuffered(0.6f);
         }};
 
         buildTower = new BuildTurret("build-tower"){{
@@ -1820,6 +1854,7 @@ public class Blocks{
             buildSpeed = 1.5f;
 
             consumePower(3f);
+            consumePowerBuffered(3f);
             consumeLiquid(Liquids.nitrogen, 3f / 60f);
         }};
 
@@ -1830,6 +1865,7 @@ public class Blocks{
             baseColor = Pal.regen;
 
             consumePower(1f);
+            consumePowerBuffered(1f);
             consumeLiquid(Liquids.hydrogen, 1f / 60f);
             consumeItem(Items.phaseFabric).boost();
 
@@ -1863,6 +1899,7 @@ public class Blocks{
             cooldownBrokenBase = 0.35f;
 
             consumePower(4f);
+            consumePowerBuffered(4f);
         }};
 
         shockwaveTower = new ShockwaveTower("shockwave-tower"){{
@@ -1870,6 +1907,7 @@ public class Blocks{
             size = 3;
             consumeLiquids(LiquidStack.with(Liquids.cyanogen, 1.5f / 60f));
             consumePower(100f / 60f);
+            consumePowerBuffered(100f / 60f);
             range = 170f;
             reload = 80f;
         }};
@@ -1881,6 +1919,7 @@ public class Blocks{
             size = 3;
 
             consumePower(5f);
+            consumePowerBuffered(5f);
         }};
 
         largeShieldProjector = new BaseShield("large-shield-projector"){{
@@ -1890,6 +1929,7 @@ public class Blocks{
             radius = 400f;
 
             consumePower(5f);
+            consumePowerBuffered(5f);
         }};
 
         //endregion
@@ -1951,6 +1991,7 @@ public class Blocks{
             pulse = true;
             envEnabled |= Env.space;
             consumePower(0.30f);
+            consumePowerBuffered(0.30f);
         }};
 
         sorter = new Sorter("sorter"){{
@@ -1993,6 +2034,7 @@ public class Blocks{
             reload = 200f;
             range = 440f;
             consumePower(1.75f);
+            consumePowerBuffered(1.75f);
         }};
 
         //erekir transport blocks
@@ -2070,6 +2112,7 @@ public class Blocks{
             underBullets = true;
             baseEfficiency = 1f;
             consumePower(1f / 60f);
+            consumePowerBuffered(1f / 60f);
             researchCost = with(Items.surgeAlloy, 30, Items.tungsten, 80);
         }};
 
@@ -2086,6 +2129,7 @@ public class Blocks{
             underBullets = true;
             solid = false;
             consumePower(3f / 60f);
+            consumePowerBuffered(3f / 60f);
         }};
 
         unitCargoLoader = new UnitCargoLoader("unit-cargo-loader"){{
@@ -2095,6 +2139,7 @@ public class Blocks{
             buildTime = 60f * 8f;
 
             consumePower(8f / 60f);
+            consumePowerBuffered(8f / 60f);
 
             //intentionally set absurdly high to make this block not overpowered
             consumeLiquid(Liquids.nitrogen, 10f / 60f);
@@ -2125,6 +2170,7 @@ public class Blocks{
             requirements(Category.liquid, with(Items.copper, 70, Items.metaglass, 50, Items.silicon, 20, Items.titanium, 35));
             pumpAmount = 0.2f;
             consumePower(0.3f);
+            consumePowerBuffered(0.3f);
             liquidCapacity = 30f;
             hasPower = true;
             size = 2;
@@ -2134,6 +2180,7 @@ public class Blocks{
             requirements(Category.liquid, with(Items.copper, 80, Items.metaglass, 90, Items.silicon, 30, Items.titanium, 40, Items.thorium, 35));
             pumpAmount = 0.22f;
             consumePower(1.3f);
+            consumePowerBuffered(1.3f);
             liquidCapacity = 40f;
             hasPower = true;
             size = 3;
@@ -2202,6 +2249,7 @@ public class Blocks{
             canOverdrive = false;
             pulse = true;
             consumePower(0.30f);
+            consumePowerBuffered(0.30f);
         }};
 
         //reinforced stuff
@@ -2435,6 +2483,7 @@ public class Blocks{
             ambientSoundVolume = 0.07f;
 
             consumePower(25f);
+            consumePowerBuffered(25f);
             consumeItem(Items.blastCompound);
             consumeLiquid(Liquids.cryofluid, 0.25f);
         }};
@@ -2685,6 +2734,7 @@ public class Blocks{
             drillEffect = Fx.mineBig;
 
             consumePower(1.10f);
+            consumePowerBuffered(1.10f);
             consumeLiquid(Liquids.water, 0.08f).boost();
         }};
 
@@ -2706,6 +2756,7 @@ public class Blocks{
             liquidBoostIntensity = 1.8f;
 
             consumePower(3f);
+            consumePowerBuffered(3f);
             consumeLiquid(Liquids.water, 0.1f).boost();
         }};
 
@@ -2720,6 +2771,7 @@ public class Blocks{
             envRequired |= Env.groundWater;
 
             consumePower(1.5f);
+            consumePowerBuffered(1.5f);
         }};
 
         cultivator = new AttributeCrafter("cultivator"){{
@@ -2746,6 +2798,7 @@ public class Blocks{
             maxBoost = 2f;
 
             consumePower(80f / 60f);
+            consumePowerBuffered(80f / 60f);
             consumeLiquid(Liquids.water, 18f / 60f);
         }};
 
@@ -2763,6 +2816,7 @@ public class Blocks{
 
             consumeItem(Items.sand);
             consumePower(3f);
+            consumePowerBuffered(3f);
             consumeLiquid(Liquids.water, 0.15f);
         }};
 
@@ -2783,12 +2837,14 @@ public class Blocks{
             boostScale = 1f / 9f;
             outputLiquid = new LiquidStack(Liquids.water, 30f / 60f);
             consumePower(0.5f);
+            consumePowerBuffered(0.5f);
             liquidCapacity = 60f;
         }};
 
         cliffCrusher = new WallCrafter("cliff-crusher"){{
             requirements(Category.production, with(Items.graphite, 25, Items.beryllium, 20));
             consumePower(11 / 60f);
+            consumePowerBuffered(11 / 60f);
 
             drillTime = 110f;
             size = 2;
@@ -2803,6 +2859,7 @@ public class Blocks{
         plasmaBore = new BeamDrill("plasma-bore"){{
             requirements(Category.production, with(Items.beryllium, 40));
             consumePower(0.15f);
+            consumePowerBuffered(0.15f);
 
             drillTime = 160f;
             tier = 3;
@@ -2818,6 +2875,7 @@ public class Blocks{
         largePlasmaBore = new BeamDrill("large-plasma-bore"){{
             requirements(Category.production, with(Items.silicon, 100, Items.oxide, 25, Items.beryllium, 100, Items.tungsten, 70));
             consumePower(0.8f);
+            consumePowerBuffered(0.8f);
             drillTime = 100f;
 
             tier = 5;
@@ -2851,6 +2909,7 @@ public class Blocks{
             fogRadius = 4;
 
             consumePower(160f / 60f);
+            consumePowerBuffered(160f / 60f);
             consumeLiquid(Liquids.water, 0.2f);
         }};
 
@@ -2879,6 +2938,7 @@ public class Blocks{
 
             //TODO different requirements
             consumePower(6f);
+            consumePowerBuffered(6f);
             consumeLiquids(LiquidStack.with(Liquids.hydrogen, 4f / 60f));
         }};
 
@@ -3305,6 +3365,7 @@ public class Blocks{
             coolant = consumeCoolant(0.2f);
 
             consumePower(6f);
+            consumePowerBuffered(6f);
 
             shootType = new LaserBulletType(140){{
                 colors = new Color[]{Pal.lancerLaser.cpy().a(0.4f), Pal.lancerLaser, Color.white};
@@ -3358,6 +3419,7 @@ public class Blocks{
             health = 260;
             shootSound = Sounds.spark;
             consumePower(3.3f);
+            consumePowerBuffered(3.3f);
             coolant = consumeCoolant(0.1f);
         }};
 
@@ -3374,6 +3436,7 @@ public class Blocks{
             rotateSpeed = 10;
 
             consumePower(3f);
+            consumePowerBuffered(3f);
         }};
 
         swarmer = new ItemTurret("swarmer"){{
@@ -3534,6 +3597,7 @@ public class Blocks{
             range = 180f;
             hasPower = true;
             consumePower(8f);
+            consumePowerBuffered(8f);
             size = 2;
             shootLength = 5f;
             bulletDamage = 30f;
@@ -3886,6 +3950,7 @@ public class Blocks{
 
             coolant = consumeCoolant(1f);
             consumePower(10f);
+            consumePowerBuffered(10f);
         }};
 
         spectre = new ItemTurret("spectre"){{
@@ -3979,6 +4044,7 @@ public class Blocks{
             scaledHealth = 200;
             coolant = consumeCoolant(0.5f);
             consumePower(17f);
+            consumePowerBuffered(17f);
         }};
 
         breach = new ItemTurret("breach"){{
@@ -4455,6 +4521,7 @@ public class Blocks{
             }};
 
             consumePower(5f);
+            consumePowerBuffered(5f);
             heatRequirement = 10f;
             maxHeatEfficiency = 2f;
 
@@ -5284,6 +5351,7 @@ public class Blocks{
             maxHeatEfficiency = 2f;
             warmupMaintainTime = 30f;
             consumePower(10f);
+            consumePowerBuffered(10f);
 
             shoot = new ShootSummon(0f, 0f, circleRad, 48f);
 
@@ -5316,6 +5384,7 @@ public class Blocks{
             );
             size = 3;
             consumePower(1.2f);
+            consumePowerBuffered(1.2f);
         }};
 
         airFactory = new UnitFactory("air-factory"){{
@@ -5326,6 +5395,7 @@ public class Blocks{
             );
             size = 3;
             consumePower(1.2f);
+            consumePowerBuffered(1.2f);
         }};
 
         navalFactory = new UnitFactory("naval-factory"){{
@@ -5336,6 +5406,7 @@ public class Blocks{
             );
             size = 3;
             consumePower(1.2f);
+            consumePowerBuffered(1.2f);
             floating = true;
         }};
 
@@ -5344,6 +5415,7 @@ public class Blocks{
 
             size = 3;
             consumePower(3f);
+            consumePowerBuffered(3f);
             consumeItems(with(Items.silicon, 40, Items.graphite, 40));
 
             constructTime = 60f * 10f;
@@ -5364,6 +5436,7 @@ public class Blocks{
 
             size = 5;
             consumePower(6f);
+            consumePowerBuffered(6f);
             consumeItems(with(Items.silicon, 130, Items.titanium, 80, Items.metaglass, 40));
 
             constructTime = 60f * 30f;
@@ -5384,6 +5457,7 @@ public class Blocks{
 
             size = 7;
             consumePower(13f);
+            consumePowerBuffered(13f);
             consumeItems(with(Items.silicon, 850, Items.titanium, 750, Items.plastanium, 650));
             consumeLiquid(Liquids.cryofluid, 1f);
 
@@ -5406,6 +5480,7 @@ public class Blocks{
 
             size = 9;
             consumePower(25f);
+            consumePowerBuffered(25f);
             consumeItems(with(Items.silicon, 1000, Items.plastanium, 600, Items.surgeAlloy, 500, Items.phaseFabric, 350));
             consumeLiquid(Liquids.cryofluid, 3f);
 
@@ -5458,6 +5533,7 @@ public class Blocks{
             regionSuffix = "-dark";
             fogRadius = 3;
             consumePower(2f);
+            consumePowerBuffered(2f);
         }};
 
         shipFabricator = new UnitFactory("ship-fabricator"){{
@@ -5470,6 +5546,7 @@ public class Blocks{
             fogRadius = 3;
             researchCostMultiplier = 0.5f;
             consumePower(2f);
+            consumePowerBuffered(2f);
         }};
 
         mechFabricator = new UnitFactory("mech-fabricator"){{
@@ -5481,6 +5558,7 @@ public class Blocks{
             fogRadius = 3;
             researchCostMultiplier = 0.65f;
             consumePower(2f);
+            consumePowerBuffered(2f);
         }};
 
         tankRefabricator = new Reconstructor("tank-refabricator"){{
@@ -5489,6 +5567,7 @@ public class Blocks{
 
             size = 3;
             consumePower(3f);
+            consumePowerBuffered(3f);
             consumeLiquid(Liquids.hydrogen, 3f / 60f);
             consumeItems(with(Items.silicon, 40, Items.tungsten, 30));
 
@@ -5506,6 +5585,7 @@ public class Blocks{
 
             size = 3;
             consumePower(2.5f);
+            consumePowerBuffered(2.5f);
             consumeLiquid(Liquids.hydrogen, 3f / 60f);
             consumeItems(with(Items.silicon, 50, Items.tungsten, 40));
 
@@ -5523,6 +5603,7 @@ public class Blocks{
 
             size = 3;
             consumePower(2.5f);
+            consumePowerBuffered(2.5f);
             consumeLiquid(Liquids.hydrogen, 3f / 60f);
             consumeItems(with(Items.silicon, 60, Items.tungsten, 40));
 
@@ -5544,6 +5625,7 @@ public class Blocks{
 
             size = 5;
             consumePower(5f);
+            consumePowerBuffered(5f);
             consumeLiquid(Liquids.nitrogen, 10f / 60f);
             consumeItems(with(Items.thorium, 80, Items.silicon, 100));
 
@@ -5568,6 +5650,7 @@ public class Blocks{
             researchCostMultiplier = 0.4f;
 
             consumePower(3f);
+            consumePowerBuffered(3f);
             consumeLiquid(Liquids.cyanogen, 9f / 60f);
         }};
 
@@ -5582,6 +5665,7 @@ public class Blocks{
             areaSize = 13;
 
             consumePower(3f);
+            consumePowerBuffered(3f);
             consumeLiquid(Liquids.cyanogen, 12f / 60f);
         }};
 
@@ -5597,6 +5681,7 @@ public class Blocks{
             areaSize = 13;
 
             consumePower(3.5f);
+            consumePowerBuffered(3.5f);
             consumeLiquid(Liquids.cyanogen, 12f / 60f);
         }};
 
@@ -5604,6 +5689,7 @@ public class Blocks{
         basicAssemblerModule = new UnitAssemblerModule("basic-assembler-module"){{
             requirements(Category.units, with(Items.carbide, 300, Items.thorium, 500, Items.oxide, 200, Items.phaseFabric, 400));
             consumePower(4f);
+            consumePowerBuffered(4f);
             regionSuffix = "-dark";
             researchCostMultiplier = 0.75f;
 
@@ -5618,6 +5704,7 @@ public class Blocks{
             healAmount = 1.5f;
 
             consumePower(1f);
+            consumePowerBuffered(1f);
             consumeLiquid(Liquids.ozone, 3f / 60f);
         }};
 
@@ -5662,6 +5749,7 @@ public class Blocks{
             maxPayloadSize = 2.5f;
             fogRadius = 5;
             consumePower(0.5f);
+            consumePowerBuffered(0.5f);
         }};
 
         largePayloadMassDriver = new PayloadMassDriver("large-payload-mass-driver"){{
@@ -5673,6 +5761,7 @@ public class Blocks{
             range = 1100f;
             maxPayloadSize = 3.5f;
             consumePower(3f);
+            consumePowerBuffered(3f);
         }};
 
         smallDeconstructor = new PayloadDeconstructor("small-deconstructor"){{
@@ -5680,6 +5769,7 @@ public class Blocks{
             regionSuffix = "-dark";
             itemCapacity = 100;
             consumePower(1f);
+            consumePowerBuffered(1f);
             size = 3;
             deconstructSpeed = 1f;
         }};
@@ -5689,6 +5779,7 @@ public class Blocks{
             regionSuffix = "-dark";
             itemCapacity = 250;
             consumePower(3f);
+            consumePowerBuffered(3f);
             size = 5;
             deconstructSpeed = 2f;
         }};
@@ -5699,6 +5790,7 @@ public class Blocks{
             hasPower = true;
             buildSpeed = 0.6f;
             consumePower(2f);
+            consumePowerBuffered(2f);
             size = 3;
             //TODO expand this list
             filter = Seq.with(Blocks.tungstenWallLarge, Blocks.berylliumWallLarge, Blocks.carbideWallLarge, Blocks.reinforcedSurgeWallLarge, Blocks.reinforcedLiquidContainer, Blocks.reinforcedContainer, Blocks.beamNode);
@@ -5715,6 +5807,7 @@ public class Blocks{
             size = 5;
 
             consumePower(2f);
+            consumePowerBuffered(2f);
         }};
 
         payloadLoader = new PayloadLoader("payload-loader"){{
@@ -5722,6 +5815,7 @@ public class Blocks{
             regionSuffix = "-dark";
             hasPower = true;
             consumePower(2f);
+            consumePowerBuffered(2f);
             size = 3;
             fogRadius = 5;
         }};
@@ -5731,6 +5825,7 @@ public class Blocks{
             regionSuffix = "-dark";
             hasPower = true;
             consumePower(2f);
+            consumePowerBuffered(2f);
             size = 3;
             fogRadius = 5;
         }};
@@ -5798,6 +5893,7 @@ public class Blocks{
             brightness = 0.75f;
             radius = 140f;
             consumePower(0.05f);
+            consumePowerBuffered(0.05f);
         }};
 
         //endregion
@@ -5827,6 +5923,7 @@ public class Blocks{
             launchTime = 60f * 20;
             hasPower = true;
             consumePower(4f);
+            consumePowerBuffered(4f);
         }};
 
         interplanetaryAccelerator = new Accelerator("interplanetary-accelerator"){{
@@ -5835,6 +5932,7 @@ public class Blocks{
             size = 7;
             hasPower = true;
             consumePower(10f);
+            consumePowerBuffered(10f);
             buildCostMultiplier = 0.5f;
             scaledHealth = 80;
         }};
