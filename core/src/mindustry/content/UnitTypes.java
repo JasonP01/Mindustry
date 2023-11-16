@@ -1316,7 +1316,7 @@ public class UnitTypes{
                     frontColor = Color.white;
                     hitSound = Sounds.none;
 
-                    healPercent = 3f;
+                    healPercent = 5.5f;
                     collidesTeam = true;
                     backColor = Pal.heal;
                     trailColor = Pal.heal;
@@ -1341,7 +1341,7 @@ public class UnitTypes{
             hitSize = 16.05f;
             engineSize = 3f;
             payloadCapacity = (2 * 2) * tilePayload;
-            buildSpeed = 2f;
+            buildSpeed = 2.6f;
             isEnemy = false;
 
             ammoType = new PowerAmmoType(1100);
@@ -1392,7 +1392,7 @@ public class UnitTypes{
             faceTarget = false;
             hitSize = 36f;
             payloadCapacity = (3 * 3) * tilePayload;
-            buildSpeed = 2.6f;
+            buildSpeed = 2.5f;
             buildBeamOffset = 23;
             range = 140f;
             targetAir = false;
