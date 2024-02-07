@@ -64,7 +64,7 @@ public class BeamNode extends PowerBlock{
 
     @Override
     public void drawPlace(int x, int y, int rotation, boolean valid){
-        for(int i = 0; i < 4; i++){
+        for(int i = 0; i < 8; i++){
             int maxLen = range + size/2;
             Building dest = null;
             var dir = Geometry.d8[i];
@@ -107,8 +107,8 @@ public class BeamNode extends PowerBlock{
 
     public class BeamNodeBuild extends Building{
         //current links in cardinal directions
-        public Building[] links = new Building[4];
-        public Tile[] dests = new Tile[4];
+        public Building[] links = new Building[8];
+        public Tile[] dests = new Tile[8];
         public int lastChange = -2;
 
         @Override
@@ -139,7 +139,7 @@ public class BeamNode extends PowerBlock{
             Draw.alpha(Renderer.laserOpacity);
             float w = laserWidth + Mathf.absin(pulseScl, pulseMag);
 
-            for(int i = 0; i < 4; i ++){
+            for(int i = 0; i < 8; i ++){
                 if(dests[i] != null && links[i].wasVisible && (!(links[i].block instanceof BeamNode node) ||
                     (links[i].tileX() != tileX() && links[i].tileY() != tileY()) ||
                     (links[i].id > id && range >= node.range) || range > node.range)){
@@ -164,7 +164,7 @@ public class BeamNode extends PowerBlock{
         }
 
         public void updateDirections(){
-            for(int i = 0; i < 4; i ++){
+            for(int i = 0; i < 8; i ++){
                 var prev = links[i];
                 var dir = Geometry.d8[i];
                 links[i] = null;
