@@ -116,9 +116,10 @@ public class Menus{
 
     @Remote(variants = Variant.both)
     public static void infoMessage(String message){
-         if(message == null) return;
+        if(message == null) return;
 
-        ui.showText("", message);    }
+        ui.showText("", message);
+    }
 
     @Remote(variants = Variant.both, unreliable = true)
     public static void infoPopup(String message, float duration, int align, int top, int left, int bottom, int right){
