@@ -67,7 +67,7 @@ public class BeamNode extends PowerBlock{
         for(int i = 0; i < 4; i++){
             int maxLen = range + size/2;
             Building dest = null;
-            var dir = Geometry.d12edge[i];
+            var dir = Geometry.d8[i];
             int dx = dir.x, dy = dir.y;
             int offset = size/2;
             for(int j = 1 + offset; j <= range + offset; j++){
@@ -147,7 +147,7 @@ public class BeamNode extends PowerBlock{
                     int dst = Math.max(Math.abs(dests[i].x - tile.x),  Math.abs(dests[i].y - tile.y));
                     //don't draw lasers for adjacent blocks
                     if(dst > 1 + size/2){
-                        var point = Geometry.d12edge[i];
+                        var point = Geometry.d8[i];
                         float poff = tilesize/2f;
                         Drawf.laser(laser, laserEnd, x + poff*size*point.x, y + poff*size*point.y, dests[i].worldx() - poff*point.x, dests[i].worldy() - poff*point.y, w);
                     }
@@ -166,7 +166,7 @@ public class BeamNode extends PowerBlock{
         public void updateDirections(){
             for(int i = 0; i < 4; i ++){
                 var prev = links[i];
-                var dir = Geometry.d12edge[i];
+                var dir = Geometry.d8[i];
                 links[i] = null;
                 dests[i] = null;
                 int offset = size/2;
