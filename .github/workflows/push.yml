@@ -33,6 +33,7 @@ jobs:
         ./gradlew updateBundles
 
         if [ -n "$(git status --porcelain)" ]; then
+          git config --global user.name "Github Actions"
           git add core/assets/bundles/*
           git commit -m "Automatic bundle update"
           git push

@@ -372,6 +372,25 @@ public class Renderer implements ApplicationListener{
             });
         }
 
+        float scaleFactor = 4f / renderer.getDisplayScale();
+
+        //draw objective markers
+        state.rules.objectives.eachRunning(obj -> {
+            for(var marker : obj.markers){
+                if(marker.world){
+                    marker.draw(marker.autoscale ? scaleFactor : 1);
+                }
+            }
+        });
+
+        for(var marker : state.markers){
+            if(marker.world){
+                marker.draw(marker.autoscale ? scaleFactor : 1);
+            }
+        }
+
+        Draw.reset();
+
         Draw.draw(Layer.overlayUI, overlays::drawTop);
         if(state.rules.fog) Draw.draw(Layer.fogOfWar, fog::drawFog);
         Draw.draw(Layer.space, this::drawLanding);
