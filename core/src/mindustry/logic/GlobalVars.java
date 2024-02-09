@@ -14,6 +14,7 @@ import mindustry.logic.LExecutor.*;
 import mindustry.type.*;
 import mindustry.world.*;
 import mindustry.world.blocks.legacy.*;
+import mindustry.world.blocks.environment.*;
 
 import java.io.*;
 
@@ -101,7 +102,7 @@ public class GlobalVars{
         }
 
         //used as a special value for any environmental solid block
-        put("@solid", Blocks.stoneWall);
+        put("@solid", Blocks.isStatic);
 
         for(UnitType type : Vars.content.units()){
             put("@" + type.name, type);
