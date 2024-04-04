@@ -5609,7 +5609,7 @@ public class Blocks{
             regionSuffix = "-dark";
             researchCostMultiplier = 0.75f;
 
-            schematicPriority = -1
+            schematicPriority = -1;
             size = 5;
         }};
 
