@@ -169,6 +169,8 @@ public class Rules{
     public Color dynamicColor = new Color(0f, 0f, 0f, 0.5f);
     /** Whether ambient lighting is enabled. */
     public boolean lighting = false;
+    /** Day/Night cycle toggle, the same Day/Night cycle from campaign */
+    public boolean doLightCycle = false;
     /** Ambient light color, used when lighting is enabled. */
     public Color ambientLight = new Color(0.01f, 0.01f, 0.04f, 0.99f);
     /** team of the player by default. */
