@@ -90,9 +90,9 @@ public class Universe{
             float light;
 
             if(state.hasSector()) {
-                state.getSector().getLight();
+                light = state.getSector().getLight();
             }else {
-                light = state.rules.ambientLight.a; //assume custom maps have full brightness
+                light = state.rules.ambientLight.a; // Fetch custom sector alpha value
             }
             float alpha;
 
