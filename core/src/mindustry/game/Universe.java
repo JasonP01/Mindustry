@@ -10,6 +10,7 @@ import mindustry.game.SectorInfo.*;
 import mindustry.gen.*;
 import mindustry.maps.*;
 import mindustry.type.*;
+import mindustry.type.Planet.*;
 import mindustry.world.blocks.storage.*;
 
 import static mindustry.Vars.*;
