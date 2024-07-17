@@ -1242,7 +1242,7 @@ public class LExecutor{
                         result.setobj(units == null || i < 0 || i >= units.size ? null : units.get(i));
                     }
                 }
-                case player -> result.setobj(i < 0 || i >= data.players.size || data.players.get(i).unit().isNull() ? null : data.players.get(i).unit());
+                case player -> result.setobj(i < 0 || i >= data.players.size ? null : data.players.get(i).unit());
                 case core -> result.setobj(i < 0 || i >= data.cores.size ? null : data.cores.get(i));
                 case build -> {
                     Block block = extra.obj() instanceof Block b ? b : null;
@@ -1497,6 +1497,7 @@ public class LExecutor{
                 }
                 case ambientLight -> state.rules.ambientLight.fromDouble(value.num());
                 case solarMultiplier -> state.rules.solarMultiplier = Math.max(value.numf(), 0f);
+                case dragMultiplier -> state.rules.dragMultiplier = Math.max(value.numf(), 0f);
                 case ban -> {
                     Object cont = value.obj();
                     if(cont instanceof Block b){
