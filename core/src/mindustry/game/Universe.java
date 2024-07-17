@@ -92,14 +92,14 @@ public class Universe{
             if(state.hasSector()) {
                 state.getSector().getLight();
             }else {
-                light = 1.0f; //assume custom maps have full brightness
+                light = state.rules.ambientLight.a; //assume custom maps have full brightness
             }
             float alpha;
 
             if(planet != null){
-                Mathf.clamp(Mathf.map(light, planet.lightSrcFrom, planet.lightSrcTo, planet.lightDstFrom, planet.lightDstTo));
+                alpha = Mathf.clamp(Mathf.map(light, planet.lightSrcFrom, planet.lightSrcTo, planet.lightDstFrom, planet.lightDstTo));
             }else{
-                Mathf.clamp(Mathf.map(light, lightSrcFrom, lightSrcTo, lightDstFrom, lightDstTo)); // use the defaults defined in Planet.java
+                alpha = Mathf.clamp(Mathf.map(light, lightSrcFrom, lightSrcTo, lightDstFrom, lightDstTo)); // use the defaults defined in Planet.java
             }
             //assign and map so darkness is not 100% dark
             state.rules.ambientLight.a = 1f - alpha;
