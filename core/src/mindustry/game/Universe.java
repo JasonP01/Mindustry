@@ -10,7 +10,6 @@ import mindustry.game.SectorInfo.*;
 import mindustry.gen.*;
 import mindustry.maps.*;
 import mindustry.type.*;
-import mindustry.type.Planet.*;
 import mindustry.world.blocks.storage.*;
 
 import static mindustry.Vars.*;
@@ -100,7 +99,7 @@ public class Universe{
             if(planet != null){
                 alpha = Mathf.clamp(Mathf.map(light, planet.lightSrcFrom, planet.lightSrcTo, planet.lightDstFrom, planet.lightDstTo));
             }else{
-                alpha = Mathf.clamp(Mathf.map(light, lightSrcFrom, lightSrcTo, lightDstFrom, lightDstTo)); // use the defaults defined in Planet.java
+                alpha = Mathf.clamp(Mathf.map(light, 0f, 0.8f, 0.2f, 1f)); // use the defaults defined in Planet.java
             }
             //assign and map so darkness is not 100% dark
             state.rules.ambientLight.a = 1f - alpha;
