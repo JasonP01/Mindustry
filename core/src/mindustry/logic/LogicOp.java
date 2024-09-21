@@ -40,7 +40,7 @@ public enum LogicOp{
     log10("log10", Math::log10),
     floor("floor", Math::floor),
     ceil("ceil", Math::ceil),
-    round("round:, Math::round),
+    round("round", Math::round),
     sqrt("sqrt", Math::sqrt),
     rand("rand", d -> GlobalVars.rand.nextDouble() * d),
 
