@@ -1252,7 +1252,7 @@ public class LExecutor{
                         if(allTeams){
                             List<Unit> results = new ArrayList<>();
                             Groups.unit.each(u -> {if(u.type == type) results.add(u); });
-                            results.setobj(results.isEmpty() || i < 0 || i >= results.size() ? null : results.get(i));
+                            result.setobj(results.isEmpty() || i < 0 || i >= results.size() ? null : results.get(i));
                         }else{
                         var units = data.unitCache(type);
                         result.setobj(units == null || i < 0 || i >= units.size ? null : units.get(i));
