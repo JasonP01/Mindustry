@@ -30,7 +30,7 @@ import mindustry.world.blocks.logic.LogicDisplay.*;
 import mindustry.world.blocks.logic.MemoryBlock.*;
 import mindustry.world.blocks.logic.MessageBlock.*;
 import mindustry.world.blocks.payloads.*;
-import mindustry.world.block.storage.*;
+import mindustry.world.blocks.storage.*;
 import mindustry.world.meta.*;
 
 import java.util.ArrayList;
@@ -1270,7 +1270,7 @@ public class LExecutor{
                 }
                 case core -> {
                     if(allTeams){
-                        List<Build> results = new ArrayList<>();
+                        List<Building> results = new ArrayList<>();
                         Groups.build.each(b -> {if(b.block instanceof CoreBlock) results.add(b); });
                         result.setobj(i < 0 || i >= results.size() ? null : results.get(i));
                     }else{
@@ -1283,7 +1283,7 @@ public class LExecutor{
                         if(block == null){
                             result.setobj(i < 0 || i >= Groups.build.size() ? null : Groups.build.index(i));
                         }else{
-                            List<Build> results = new ArrayList<>();
+                            List<Building> results = new ArrayList<>();
                             Groups.build.each(b -> {if(b.block == block) results.add(b); });
                             result.setobj(i < 0 || i >= results.size() ? null : results.get(i));
                         }
@@ -1316,7 +1316,7 @@ public class LExecutor{
                 }
                 case coreCount -> {
                     if(allTeams){
-                        List<Build> results = new ArrayList<>();
+                        List<Building> results = new ArrayList<>();
                         Groups.build.each(b -> {if(b.block instanceof CoreBlock) results.add(b); });
                         result.setnum(results.isEmpty() ? 0 : results.size());
                     }else{
@@ -1336,7 +1336,7 @@ public class LExecutor{
                         if(block == null){
                             result.setnum(Groups.build.size());
                         }else{
-                            List<Build> results = new ArrayList<>();
+                            List<Building> results = new ArrayList<>();
                             Groups.build.each(b -> {if(b.block == block) results.add(b); });
                             result.setnum(results.isEmpty() ? 0 : results.size());
                         }
