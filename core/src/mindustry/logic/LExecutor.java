@@ -1247,7 +1247,7 @@ public class LExecutor{
                     }else{
                         if(allTeams){
                             List<Unit> results = new ArrayList<>();
-                            Groups.unit.each(u -> {if(u.type == type){result.add(u)}});
+                            Groups.unit.each(u -> {if(u.type == type) result.add(u); });
                             results.setobj(results.isEmpty() || i < 0 || i >= results.size() ? null : results.get(i));
                         }else{
                         var units = data.unitCache(type);
@@ -1267,7 +1267,7 @@ public class LExecutor{
                 case core -> {
                     if(allTeams){
                         List<Build> results = new ArrayList<>();
-                        Groups.build.each(b -> {if(b.block instanceof CoreBlock){results.add(b)}});
+                        Groups.build.each(b -> {if(b.block instanceof CoreBlock) results.add(b); });
                         result.setobj(i < 0 || i >= results.size() ? null : results.get(i));
                     }else{
                         result.setobj(i < 0 || i >= data.cores.size ? null : data.cores.get(i));
@@ -1280,7 +1280,7 @@ public class LExecutor{
                             result.setobj(i < 0 || i >= Groups.build.size() ? null : Groups.build.index(i));
                         }else{
                             List<Build> results = new ArrayList<>();
-                            Groups.build.each(b -> {if(b.block == block){results.add(b)}});
+                            Groups.build.each(b -> {if(b.block == block) results.add(b); });
                             result.setobj(i < 0 || i >= results.size() ? null : results.get(i));
                         }
                     }else{
@@ -1299,7 +1299,7 @@ public class LExecutor{
                             result.setnum(Groups.unit.size());
                         }else{
                             List<Unit> results = new ArrayList<>();
-                            Groups.unit.each(u -> {if(u.type == type){results.add(u)}});
+                            Groups.unit.each(u -> {if(u.type == type) results.add(u); });
                             result.setnum(results.isEmpty() ? 0 : results.size());
                         }
                     }else{
@@ -1313,7 +1313,7 @@ public class LExecutor{
                 case coreCount -> {
                     if(allTeams){
                         List<Build> results = new ArrayList<>();
-                        Groups.build.each(b -> {if(b.block instanceof CoreBlock){results.add(b)}});
+                        Groups.build.each(b -> {if(b.block instanceof CoreBlock) results.add(b); });
                         result.setnum(results.isEmpty() ? 0 : results.size());
                     }else{
                         result.setnum(data.cores.size);
@@ -1321,7 +1321,7 @@ public class LExecutor{
                 }
                 case playerCount -> {
                     if(allTeams){
-                        result.setnum(Groups.player.size())
+                        result.setnum(Groups.player.size());
                     }else{
                         result.setnum(data.players.size);
                     }
@@ -1333,7 +1333,7 @@ public class LExecutor{
                             result.setnum(Groups.build.size());
                         }else{
                             List<Build> results = new ArrayList<>();
-                            Groups.build.each(b -> {if(b.block == block){results.add(b)}});
+                            Groups.build.each(b -> {if(b.block == block) results.add(b); });
                             result.setnum(results.isEmpty() ? 0 : results.size());
                         }
                     }else{
