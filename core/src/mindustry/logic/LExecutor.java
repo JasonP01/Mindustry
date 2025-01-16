@@ -1173,6 +1173,9 @@ public class LExecutor{
         }
     }
 
+    //endregion
+    //region privileged / world instructions
+
     public static class CutsceneI implements LInstruction{
         public CutsceneAction action = CutsceneAction.stop;
         public LVar p1, p2, p3, p4;
@@ -1228,55 +1231,122 @@ public class LExecutor{
         public void run(LExecutor exec){
             int i = index.numi();
             Team t = team.team();
-            if(t == null) return;
+            Boolean allTeams = team.bool() ? true : false;
+            if(t == null && !allTeams) return;
             TeamData data = t.data();
 
             switch(type){
                 case unit -> {
                     UnitType type = extra.obj() instanceof UnitType u ? u : null;
                     if(type == null){
-                        result.setobj(i < 0 || i >= data.units.size ? null : data.units.get(i));
+                        if(allTeams){
+                            result.setobj(i < 0 || i >= Groups.unit.size() ? null : Groups.unit.index(i));
+                        }else{
+                            result.setobj(i < 0 || i >= data.units.size ? null : data.units.get(i));
+                        }
                     }else{
+                        if(allTeams){
+                            List<Unit> results = new ArrayList<>();
+                            Groups.unit.each(u -> {if(u.type == type){result.add(u)}});
+                            results.setobj(results.isEmpty() || i < 0 || i >= results.size() ? null : results.get(i));
+                        }else{
                         var units = data.unitCache(type);
                         result.setobj(units == null || i < 0 || i >= units.size ? null : units.get(i));
+                        }
                     }
                 }
-                case player -> result.setobj(i < 0 || i >= data.players.size ? null :
-                    data.players.get(i).unit() instanceof BlockUnitc block ? block.tile() : data.players.get(i).unit());
-                case core -> result.setobj(i < 0 || i >= data.cores.size ? null : data.cores.get(i));
+                case player -> {
+                    if(allTeams){
+                        result.setobj(i < 0 || i >= Groups.player.size() ? null :
+                        Groups.player.index(i).unit() instanceof BlockUnitc block ? block.tile() : Groups.player.get(i).unit());
+                    }else{
+                        result.setobj(i < 0 || i >= data.players.size ? null :
+                        data.players.get(i).unit() instanceof BlockUnitc block ? block.tile() : data.players.get(i).unit());
+                    }
+                }
+                case core -> {
+                    if(allTeams){
+                        List<Build> results = new ArrayList<>();
+                        Groups.build.each(b -> {if(b.block instanceof CoreBlock){results.add(b)}});
+                        result.setobj(i < 0 || i >= results.size() ? null : results.get(i));
+                    }else{
+                        result.setobj(i < 0 || i >= data.cores.size ? null : data.cores.get(i));
+                    }
+                }
                 case build -> {
                     Block block = extra.obj() instanceof Block b ? b : null;
-                    if(block == null){
-                        result.setobj(i < 0 || i >= data.buildings.size ? null : data.buildings.get(i));
+                    if(allTeams){
+                        if(block == null){
+                            result.setobj(i < 0 || i >= Groups.build.size() ? null : Groups.build.index(i));
+                        }else{
+                            List<Build> results = new ArrayList<>();
+                            Groups.build.each(b -> {if(b.block == block){results.add(b)}});
+                            result.setobj(i < 0 || i >= results.size() ? null : results.get(i));
+                        }
                     }else{
-                        var builds = data.getBuildings(block);
-                        result.setobj(i < 0 || i >= builds.size ? null : builds.get(i));
+                        if(block == null){
+                            result.setobj(i < 0 || i >= data.buildings.size ? null : data.buildings.get(i));
+                        }else{
+                            var builds = data.getBuildings(block);
+                            result.setobj(i < 0 || i >= builds.size ? null : builds.get(i));
+                        }
                     }
                 }
                 case unitCount -> {
                     UnitType type = extra.obj() instanceof UnitType u ? u : null;
-                    if(type == null){
-                        result.setnum(data.units.size);
+                    if(allTeams){
+                        if(type == null){
+                            result.setnum(Groups.unit.size());
+                        }else{
+                            List<Unit> results = new ArrayList<>();
+                            Groups.unit.each(u -> {if(u.type == type){results.add(u)}});
+                            result.setnum(results.isEmpty() ? 0 : results.size());
+                        }
                     }else{
-                        result.setnum(data.unitCache(type) == null ? 0 : data.unitCache(type).size);
+                        if(type == null){
+                            result.setnum(data.units.size);
+                        }else{
+                            result.setnum(data.unitCache(type) == null ? 0 : data.unitCache(type).size);
+                        }
                     }
                 }
-                case coreCount -> result.setnum(data.cores.size);
-                case playerCount -> result.setnum(data.players.size);
+                case coreCount -> {
+                    if(allTeams){
+                        List<Build> results = new ArrayList<>();
+                        Groups.build.each(b -> {if(b.block instanceof CoreBlock){results.add(b)}});
+                        result.setnum(results.isEmpty() ? 0 : results.size());
+                    }else{
+                        result.setnum(data.cores.size);
+                    }
+                }
+                case playerCount -> {
+                    if(allTeams){
+                        result.setnum(Groups.player.size())
+                    }else{
+                        result.setnum(data.players.size);
+                    }
+                }
                 case buildCount -> {
                     Block block = extra.obj() instanceof Block b ? b : null;
-                    if(block == null){
-                        result.setnum(data.buildings.size);
+                    if(allTeams){
+                        if(block == null){
+                            result.setnum(Groups.build.size());
+                        }else{
+                            List<Build> results = new ArrayList<>();
+                            Groups.build.each(b -> {if(b.block == block){results.add(b)}});
+                            result.setnum(results.isEmpty() ? 0 : results.size());
+                        }
                     }else{
-                        result.setnum(data.getBuildings(block).size);
+                        if(block == null){
+                            result.setnum(data.buildings.size);
+                        }else{
+                            result.setnum(data.getBuildings(block).size);
+                        }
                     }
                 }
             }
         }
     }
-
-    //endregion
-    //region privileged / world instructions
 
     public static class GetBlockI implements LInstruction{
         public LVar x, y;
