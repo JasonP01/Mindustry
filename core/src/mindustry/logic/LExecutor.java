@@ -30,7 +30,11 @@ import mindustry.world.blocks.logic.LogicDisplay.*;
 import mindustry.world.blocks.logic.MemoryBlock.*;
 import mindustry.world.blocks.logic.MessageBlock.*;
 import mindustry.world.blocks.payloads.*;
+import mindustry.world.block.storage.*;
 import mindustry.world.meta.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static mindustry.Vars.*;
 
@@ -1247,7 +1251,7 @@ public class LExecutor{
                     }else{
                         if(allTeams){
                             List<Unit> results = new ArrayList<>();
-                            Groups.unit.each(u -> {if(u.type == type) result.add(u); });
+                            Groups.unit.each(u -> {if(u.type == type) results.add(u); });
                             results.setobj(results.isEmpty() || i < 0 || i >= results.size() ? null : results.get(i));
                         }else{
                         var units = data.unitCache(type);
@@ -1258,7 +1262,7 @@ public class LExecutor{
                 case player -> {
                     if(allTeams){
                         result.setobj(i < 0 || i >= Groups.player.size() ? null :
-                        Groups.player.index(i).unit() instanceof BlockUnitc block ? block.tile() : Groups.player.get(i).unit());
+                        Groups.player.index(i).unit() instanceof BlockUnitc block ? block.tile() : Groups.player.index(i).unit());
                     }else{
                         result.setobj(i < 0 || i >= data.players.size ? null :
                         data.players.get(i).unit() instanceof BlockUnitc block ? block.tile() : data.players.get(i).unit());
