@@ -66,6 +66,8 @@ public class UnitType extends UnlockableContent implements Senseable{
     accel = 0.5f,
     /** size of one side of the hitbox square */
     hitSize = 6f,
+    /** shake on unit death */
+    deathShake = -1f,
     /** shake on each step for leg/mech units */
     stepShake = -1f,
     /** ripple / dust size for legged units */
@@ -103,14 +105,18 @@ public class UnitType extends UnlockableContent implements Senseable{
 
     /** for ground units, the layer upon which this unit is drawn */
     groundLayer = Layer.groundUnit,
+    /** For units that fly, the layer upon which this unit is drawn. If no value is set, defaults to Layer.flyingUnitLow or Layer.flyingUnit depending on lowAltitude */
+    flyingLayer = -1,
     /** Payload capacity of this unit in world units^2 */
     payloadCapacity = 8,
     /** building speed multiplier; <0 to disable. */
     buildSpeed = -1f,
     /** Minimum distance from this unit that weapons can target. Prevents units from firing "inside" the unit. */
     aimDst = -1f,
-    /** Visual offset of build beam from front. */
+    /** Visual offset of the build beam from the front. */
     buildBeamOffset = 3.8f,
+    /** Visual offset of the mining beam from the front. Defaults to half the hitsize. */
+    mineBeamOffset = Float.NEGATIVE_INFINITY,
     /** WIP: Units of low priority will always be ignored in favor of those with higher priority, regardless of distance. */
     targetPriority = 0f,
     /** Elevation of shadow drawn under this (ground) unit. Visual only. */
@@ -232,6 +238,8 @@ public class UnitType extends UnlockableContent implements Senseable{
     squareShape = false,
     /** if true, this unit will draw its building beam towards blocks. */
     drawBuildBeam = true,
+    /** if true, this unit will draw its mining beam towards blocks */
+    drawMineBeam = true,
     /** if false, the team indicator/cell is not drawn. */
     drawCell = true,
     /** if false, carried items are not drawn. */
@@ -439,7 +447,7 @@ public class UnitType extends UnlockableContent implements Senseable{
     public TextureRegion baseRegion, legRegion, region, previewRegion, shadowRegion, cellRegion, itemCircleRegion,
         softShadowRegion, jointRegion, footRegion, legBaseRegion, baseJointRegion, outlineRegion, treadRegion,
         mineLaserRegion, mineLaserEndRegion;
-    public TextureRegion[] wreckRegions, segmentRegions, segmentOutlineRegions;
+    public TextureRegion[] wreckRegions, segmentRegions, segmentCellRegions, segmentOutlineRegions;
     public TextureRegion[][] treadRegions;
 
     //INTERNAL REQUIREMENTS
@@ -728,6 +736,7 @@ public class UnitType extends UnlockableContent implements Senseable{
             autoFindTarget = !weapons.contains(w -> w.shootStatus.speedMultiplier < 0.99f) || alwaysShootWhenMoving;
         }
 
+        if(flyingLayer < 0) flyingLayer = lowAltitude ? Layer.flyingUnitLow : Layer.flyingUnit;
         clipSize = Math.max(clipSize, lightRadius * 1.1f);
         singleTarget = weapons.size <= 1 && !forceMultiTarget;
 
@@ -797,6 +806,8 @@ public class UnitType extends UnlockableContent implements Senseable{
                 }
             }).layer(Layer.debris);
         }
+
+        if(mineBeamOffset == Float.NEGATIVE_INFINITY) mineBeamOffset = hitSize / 2;
 
         for(Ability ab : abilities){
             ab.init(this);
@@ -958,9 +969,11 @@ public class UnitType extends UnlockableContent implements Senseable{
 
         segmentRegions = new TextureRegion[segments];
         segmentOutlineRegions = new TextureRegion[segments];
+        segmentCellRegions = new TextureRegion[segments];
         for(int i = 0; i < segments; i++){
             segmentRegions[i] = Core.atlas.find(name + "-segment" + i);
             segmentOutlineRegions[i] = Core.atlas.find(name + "-segment-outline" + i);
+            segmentCellRegions[i] = Core.atlas.find(name + "-segment-cell" + i);
         }
 
         clipSize = Math.max(region.width * 2f, clipSize);
@@ -1183,6 +1196,7 @@ public class UnitType extends UnlockableContent implements Senseable{
             case size -> hitSize / tilesize;
             case itemCapacity -> itemCapacity;
             case speed -> speed * 60f / tilesize;
+            case payloadCapacity -> sample instanceof Payloadc ? payloadCapacity / tilePayload : 0f;
             case id -> getLogicId();
             default -> Double.NaN;
         };
@@ -1218,13 +1232,12 @@ public class UnitType extends UnlockableContent implements Senseable{
         if(unit.inFogTo(Vars.player.team())) return;
 
         unit.drawBuilding();
-
         drawMining(unit);
 
         boolean isPayload = !unit.isAdded();
 
         Mechc mech = unit instanceof Mechc ? (Mechc)unit : null;
-        float z = isPayload ? Draw.z() : unit.elevation > 0.5f ? (lowAltitude ? Layer.flyingUnitLow : Layer.flyingUnit) : groundLayer + Mathf.clamp(hitSize / 4000f, 0, 0.01f);
+        float z = isPayload ? Draw.z() : (unit.elevation > 0.5f ? flyingLayer : groundLayer) + Mathf.clamp(hitSize / 4000f, 0, 0.01f);
 
         if(unit.controller().isBeingControlled(player.unit())){
             drawControl(unit);
@@ -1280,7 +1293,7 @@ public class UnitType extends UnlockableContent implements Senseable{
         if(engines.size > 0) drawEngines(unit);
         Draw.z(z);
         if(drawBody) drawBody(unit);
-        if(drawCell) drawCell(unit);
+        if(drawCell && !(unit instanceof Crawlc)) drawCell(unit);
         drawWeapons(unit);
         if(drawItems) drawItems(unit);
         if(!isPayload){
@@ -1331,15 +1344,20 @@ public class UnitType extends UnlockableContent implements Senseable{
         return shieldColor == null ? unit.team.color : shieldColor;
     }
 
-
     public void drawMining(Unit unit){
+        if(drawMineBeam){
+            float focusLen = mineBeamOffset + Mathf.absin(Time.time, 1.1f, 0.5f);
+            float px = unit.x + Angles.trnsx(unit.rotation, focusLen);
+            float py = unit.y + Angles.trnsy(unit.rotation, focusLen);
+
+            drawMiningBeam(unit, px, py);
+        }
+    }
+
+    public void drawMiningBeam(Unit unit, float px, float py){
         if(!unit.mining()) return;
-        float focusLen = unit.hitSize / 2f + Mathf.absin(Time.time, 1.1f, 0.5f);
         float swingScl = 12f, swingMag = tilesize / 8f;
         float flashScl = 0.3f;
-
-        float px = unit.x + Angles.trnsx(unit.rotation, focusLen);
-        float py = unit.y + Angles.trnsy(unit.rotation, focusLen);
 
         float ex = unit.mineTile.worldx() + Mathf.sin(Time.time + 48, swingScl, swingMag);
         float ey = unit.mineTile.worldy() + Mathf.sin(Time.time + 48, swingScl + 2f, swingMag);
@@ -1348,6 +1366,7 @@ public class UnitType extends UnlockableContent implements Senseable{
 
         Draw.color(Color.lightGray, Color.white, 1f - flashScl + Mathf.absin(Time.time, 0.5f, flashScl));
 
+        Draw.alpha(Renderer.unitLaserOpacity);
         Drawf.laser(mineLaserRegion, mineLaserEndRegion, px, py, ex, ey, 0.75f);
 
         if(unit.isLocal()){
@@ -1645,6 +1664,13 @@ public class UnitType extends UnlockableContent implements Senseable{
 
                 //TODO merge outlines?
                 Draw.rect(regions[i], unit.x + tx, unit.y + ty, rot - 90);
+
+                // Draws the cells
+                if(drawCell && p != 0 && segmentCellRegions[i].found()){
+                    Draw.color(cellColor(unit));
+                    Draw.rect(segmentCellRegions[i], unit.x + tx, unit.y + ty, rot - 90);
+                    Draw.reset();
+                }
             }
         }
     }
@@ -1738,29 +1764,30 @@ public class UnitType extends UnlockableContent implements Senseable{
 
             Tmp.v1.set(x, y).rotate(rot);
             float ex = Tmp.v1.x, ey = Tmp.v1.y;
+            float rad = (radius + Mathf.absin(Time.time, 2f, radius / 4f)) * scale;
 
             //engine outlines (cursed?)
             /*float z = Draw.z();
             Draw.z(z - 0.0001f);
             Draw.color(type.outlineColor);
             Fill.circle(
-            unit.x + ex,
-            unit.y + ey,
-            (type.outlineRadius * Draw.scl + radius + Mathf.absin(Time.time, 2f, radius / 4f)) * scale
+                unit.x + ex,
+                unit.y + ey,
+                (type.outlineRadius * Draw.scl + radius + Mathf.absin(Time.time, 2f, radius / 4f)) * scale
             );
             Draw.z(z);*/
 
             Draw.color(color);
             Fill.circle(
-            unit.x + ex,
-            unit.y + ey,
-            (radius + Mathf.absin(Time.time, 2f, radius / 4f)) * scale
+                unit.x + ex,
+                unit.y + ey,
+                rad
             );
             Draw.color(type.engineColorInner);
             Fill.circle(
-            unit.x + ex - Angles.trnsx(rot + rotation, 1f),
-            unit.y + ey - Angles.trnsy(rot + rotation, 1f),
-            (radius + Mathf.absin(Time.time, 2f, radius / 4f)) / 2f  * scale
+                unit.x + ex - Angles.trnsx(rot + rotation, rad / 4f),
+                unit.y + ey - Angles.trnsy(rot + rotation, rad / 4f),
+                rad / 2f
             );
         }
 

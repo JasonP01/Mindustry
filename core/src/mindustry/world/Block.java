@@ -124,6 +124,8 @@ public class Block extends UnlockableContent implements Senseable{
     public boolean saveData;
     /** whether you can break this with rightclick */
     public boolean breakable;
+    /** if true, this block will be broken by certain units stepping/moving over it */
+    public boolean unitMoveBreakable;
     /** whether to add this block to brokenblocks */
     public boolean rebuildable = true;
     /** if true, this logic-related block can only be used with privileged processors (or is one itself) */
@@ -316,8 +318,8 @@ public class Block extends UnlockableContent implements Senseable{
     public ItemStack[] requirements = {};
     /** Category in place menu. */
     public Category category = Category.distribution;
-    /** Time to build this block in ticks; do not modify directly! */
-    public float buildCost = 20f;
+    /** Time to build this block in ticks. If this value is <0, it is calculated dynamically. */
+    public float buildTime = -1f;
     /** Whether this block is visible and can currently be built. */
     public BuildVisibility buildVisibility = BuildVisibility.hidden;
     /** Multiplier for speed of building this block. */
@@ -555,7 +557,7 @@ public class Block extends UnlockableContent implements Senseable{
         }
 
         if(canBeBuilt() && requirements.length > 0){
-            stats.add(Stat.buildTime, buildCost / 60, StatUnit.seconds);
+            stats.add(Stat.buildTime, buildTime / 60, StatUnit.seconds);
             stats.add(Stat.buildCost, StatValues.items(false, requirements));
         }
 
@@ -1235,14 +1237,18 @@ public class Block extends UnlockableContent implements Senseable{
         offset = ((size + 1) % 2) * tilesize / 2f;
         sizeOffset = -((size - 1) / 2);
 
-        if(requirements.length > 0){
-            buildCost = 0f;
+        if(requirements.length > 0 && buildTime < 0){
+            buildTime = 0f;
             for(ItemStack stack : requirements){
-                buildCost += stack.amount * stack.item.cost;
+                buildTime += stack.amount * stack.item.cost;
             }
         }
 
-        buildCost *= buildCostMultiplier;
+        if(buildTime < 0){
+            buildTime = 20f;
+        }
+
+        buildTime *= buildCostMultiplier;
 
         consumers = consumeBuilder.toArray(Consume.class);
         optionalConsumers = consumeBuilder.select(consume -> consume.optional && !consume.ignore()).toArray(Consume.class);
