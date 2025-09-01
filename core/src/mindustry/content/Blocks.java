@@ -6617,6 +6617,7 @@ public class Blocks{
             brightness = 0.75f;
             radius = 140f;
             fogRadius = 140;
+            requireFogEnabled = true;
             consumePower(0.05f);
         }};
 

@@ -68,6 +68,7 @@ public final class FogControl implements CustomChunk{
                     data.dynamicUpdated = true;
                 }
 
+                if(event.tile.block().flags.contains(BlockFlag.requireFogEnabled) && event.tile.build.efficiency <= 0) return;
                 if(state.rules.staticFog){
                     synchronized(staticEvents){
                         //TODO event per team?
