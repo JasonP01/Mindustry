@@ -25,7 +25,7 @@ import static mindustry.Vars.*;
  * Rotation must be set to true. Fixed repair points are not supported.
  * */
 public class RepairBeamWeapon extends Weapon{
-    public boolean targetBuildings = false, targetUnits = true;
+    public boolean targetBuildings = false, targetUnits = true, targetSameTypeUnits = true;
 
     public float repairSpeed = 0.3f;
     public float fractionRepairSpeed = 0f;
@@ -67,6 +67,8 @@ public class RepairBeamWeapon extends Weapon{
     public void addStats(UnitType u, Table w){
         w.row();
         w.add("[lightgray]" + Stat.repairSpeed.localized() + ": " + (mirror ? "2x " : "") + "[white]" + (int)(repairSpeed * 60) + " " + StatUnit.perSecond.localized());
+        w.row();
+        w.add("[lightgray] Target Same type Units: " + (targetSameTypeUnits ? "[green]" + Core.bundle.get("yes") : "[red]" + Core.bundle.get("no")));
     }
 
     @Override
@@ -86,7 +88,7 @@ public class RepairBeamWeapon extends Weapon{
 
     @Override
     protected Teamc findTarget(Unit unit, float x, float y, float range, boolean air, boolean ground){
-        var out = targetUnits ? Units.closest(unit.team, x, y, range, u -> u != unit && u.damaged()) :  null;
+        var out = targetUnits ? Units.closest(unit.team, x, y, range, u -> u != unit && (targetSameTypeUnits || u.type != unit.type) && u.damaged()) :  null;
         if(out != null || !targetBuildings) return out;
         return Units.findAllyTile(unit.team, x, y, range, Building::damaged);
     }
@@ -191,3 +193,4 @@ public class RepairBeamWeapon extends Weapon{
         }
     }
 }
+
