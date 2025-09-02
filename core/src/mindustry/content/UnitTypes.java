@@ -1476,7 +1476,22 @@ public class UnitTypes{
             buildBeamOffset = 43;
             ammoCapacity = 1;
 
-            abilities.add(new ForceFieldAbility(140f, 4f, 7000f, 60f * 8, 8, 0f), new RepairFieldAbility(130f, 60f * 2, 140f));
+            weapons.add(new RepairBeamWeapon("oct-repair-beam-weapon"){{
+                x = -28f;
+                y = -30f / 4f;
+                shootY = 6f;
+                beamWidth = 1.5f;
+                repairSpeed = 800f / 60f;
+
+                bullet = new BulletType(){{
+                    maxRange = 180f;
+                }};
+            }});
+
+            abilities.add(
+                new ForceFieldAbility(140f, 10f, 10000f, 60f * 6, 8, 0f, 2500f, 280f, 5000f),
+                new RepairFieldAbility(600f, 60f * 3, 200f)
+            );
         }};
 
         //endregion

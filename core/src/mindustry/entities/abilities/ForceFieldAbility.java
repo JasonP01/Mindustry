@@ -10,6 +10,7 @@ import arc.scene.ui.layout.*;
 import arc.util.*;
 import mindustry.*;
 import mindustry.content.*;
+import mindustry.entities.*;
 import mindustry.gen.*;
 import mindustry.graphics.*;
 import mindustry.ui.*;
@@ -29,10 +30,16 @@ public class ForceFieldAbility extends Ability{
     public int sides = 6;
     /** Rotation of shield. */
     public float rotation = 0f;
+    /** Amount of damage done when shield breaks. */
+    public float damage = 0f;
+    /** Radius of damage the shield does */
+    public float damageRadius = radius;
+    /** Minimum health required for shield to be capable of dealing damage. */
+    public float minHealthDamage = max;
 
     /** State. */
     protected float radiusScale, alpha;
-    protected boolean wasBroken = true;
+    protected boolean wasBroken, canExplode = true;
 
     private static float realRad;
     private static Unit paramUnit;
@@ -62,6 +69,18 @@ public class ForceFieldAbility extends Ability{
         this.rotation = rotation;
     }
 
+    public ForceFieldAbility(float radius, float regen, float max, float cooldown, int sides, float rotation, float damage, float damageRadius, float minHealthDamage){
+        this.radius = radius;
+        this.regen = regen;
+        this.max = max;
+        this.cooldown = cooldown;
+        this.sides = sides;
+        this.rotation = rotation;
+        this.damage = damage;
+        this.damageRadius = damageRadius;
+        this.minHealthDamage = minHealthDamage;
+    }
+
     ForceFieldAbility(){}
 
     @Override
@@ -82,12 +101,19 @@ public class ForceFieldAbility extends Ability{
             unit.shield -= cooldown * regen;
 
             Fx.shieldBreak.at(unit.x, unit.y, radius, unit.type.shieldColor(unit), this);
+            if(damage > 0f && canExplode){
+                Damage.damage(unit.team, unit.x, unit.y, damageRadius, damage);
+                Fx.sparkExplosion.at(unit.x, unit.y, damageRadius, Color.white); // TODO: new var for color?
+                canExplode = false;
+            }
         }
 
         wasBroken = unit.shield <= 0f;
 
+
         if(unit.shield < max){
             unit.shield += Time.delta * regen;
+            if(unit.shield >= minHealthDamage && !canExplode) canExplode = true;
         }
 
         alpha = Math.max(alpha - Time.delta/10f, 0f);
