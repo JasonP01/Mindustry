@@ -30,7 +30,6 @@ public enum BlockFlag{
     unitCargoUnloadPoint,
     unitAssembler,
     hasFogRadius,
-    requireFogEnabled,
     steamVent,
     blockRepair,
     synced;

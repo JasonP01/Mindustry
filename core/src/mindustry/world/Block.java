@@ -315,10 +315,8 @@ public class Block extends UnlockableContent implements Senseable{
 
     /** How much fog this block uncovers, in tiles. Cannot be dynamic. <= 0 to disable. */
     public int fogRadius = -1;
-    /** Whether this block needs to be enabled to reveal fog */
-    public boolean requireFogEnabled = false;
 
-    /** The sound that this block makes while idle. Uses one sound loop for all blocks.  */
+    /** The sound that this block makes while idle. Uses one sound loop for all blocks. */
     public Sound ambientSound = Sounds.none;
     /** Idle sound base volume. */
     public float ambientSoundVolume = 0.05f;
@@ -1240,10 +1238,6 @@ public class Block extends UnlockableContent implements Senseable{
 
         if(fogRadius > 0){
             flags = flags.with(BlockFlag.hasFogRadius);
-        }
-
-        if(requireFogEnabled){
-            flags = flags.with(BlockFlag.requireFogEnabled);
         }
 
         if(sync){
