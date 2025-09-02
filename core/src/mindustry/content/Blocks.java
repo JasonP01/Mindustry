@@ -6616,8 +6616,6 @@ public class Blocks{
             requirements(Category.effect, BuildVisibility.lightingOnly, with(Items.graphite, 12, Items.silicon, 8, Items.lead, 8));
             brightness = 0.75f;
             radius = 140f;
-            fogRadius = 140;
-            requireFogEnabled = true;
             consumePower(0.05f);
         }};
 
