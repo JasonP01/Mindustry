@@ -593,6 +593,10 @@ public class UnitType extends UnlockableContent implements Senseable{
         return targetable || (vulnerableWithPayloads && unit instanceof Payloadc p && p.hasPayload());
     }
 
+    public boolean killable(Unit unit){
+        return killable;
+    }
+
     public boolean hittable(Unit unit){
         return hittable || (vulnerableWithPayloads && unit instanceof Payloadc p && p.hasPayload());
     }
@@ -778,22 +782,7 @@ public class UnitType extends UnlockableContent implements Senseable{
         }
 
         if(immunities.size > 0){
-            var imm = immunities.toSeq().sort();
-            //it's redundant to list wet for naval units
-            if(naval){
-                imm.remove(StatusEffects.wet);
-            }
-            stats.add(Stat.immunities, StatValues.statusEffects(imm));
-        }
-    }
-
-    //never actually called; it turns out certain mods have custom weapons that do not need bullets.
-    protected void validateWeapons(){
-        for(int i = 0; i < weapons.size; i++){
-            var wep = weapons.get(i);
-            if(wep.bullet == Bullets.placeholder || wep.bullet == null){
-                throw new RuntimeException("Unit: " + name + ": weapon #" + i + " ('" + wep.name + "') does not have a bullet defined. Make sure you have a bullet: (JSON) or `bullet = ` field in your unit definition.");
-            }
+            stats.add(Stat.immunities, StatValues.statusEffects(immunities.toSeq().sort()));
         }
     }
 
@@ -900,13 +889,11 @@ public class UnitType extends UnlockableContent implements Senseable{
         //assume slight range margin
         float margin = 4f;
 
-        boolean skipWeapons = !weapons.contains(w -> !w.useAttackRange);
-
         //set up default range
         if(range < 0){
             range = Float.MAX_VALUE;
             for(Weapon weapon : weapons){
-                if(!weapon.useAttackRange && skipWeapons) continue;
+                if(!weapon.useAttackRange) continue;
 
                 range = Math.min(range, weapon.range() - margin);
                 maxRange = Math.max(maxRange, weapon.range() - margin);
@@ -917,7 +904,7 @@ public class UnitType extends UnlockableContent implements Senseable{
             maxRange = Math.max(0f, range);
 
             for(Weapon weapon : weapons){
-                if(!weapon.useAttackRange && skipWeapons) continue;
+                if(!weapon.useAttackRange) continue;
 
                 maxRange = Math.max(maxRange, weapon.range() - margin);
             }
@@ -928,8 +915,9 @@ public class UnitType extends UnlockableContent implements Senseable{
             fogRadius = Math.max(58f * 3f, hitSize * 2f) / 8f;
         }
 
-        if(weapons.isEmpty()){
-            range = maxRange = mineRange;
+        if(!weapons.contains(w -> w.useAttackRange)){
+            if(range < 0 || range == Float.MAX_VALUE) range = mineRange;
+            if(maxRange < 0 || maxRange == Float.MAX_VALUE) maxRange = mineRange;
         }
 
         if(mechStride < 0){
@@ -1548,9 +1536,12 @@ public class UnitType extends UnlockableContent implements Senseable{
 
     public <T extends Unit & Payloadc> void drawPayload(T unit){
         if(unit.hasPayload()){
+            float prev = Draw.z();
+            Draw.z(prev - 0.02f);
             Payload pay = unit.payloads().first();
             pay.set(unit.x, unit.y, unit.rotation);
             pay.draw();
+            Draw.z(prev);
         }
     }
 
