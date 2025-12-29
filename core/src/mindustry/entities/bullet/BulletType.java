@@ -94,6 +94,8 @@ public class BulletType extends Content implements Cloneable{
     public float buildingDamageMultiplier = 1f;
     /** Multiplier of how much base damage is done to force shields. */
     public float shieldDamageMultiplier = 1f;
+    /** Multiplier of how much damage is done towards MissileUnitType */
+    public float missileDamageMultiplier = 1f;
     /** Recoil from shooter entities. */
     public float recoil;
     /** Whether to kill the shooter when this is shot. For suicide bombers. */
