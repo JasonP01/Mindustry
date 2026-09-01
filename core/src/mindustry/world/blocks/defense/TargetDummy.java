@@ -49,14 +49,13 @@ public class TargetDummy extends Block{
         });
         config(Float.class, (TargetDummyBuild tile, Float f) -> tile.dummySize = f);
         config(int[].class, (TargetDummyBuild tile, int[] config) -> {
-            if(config.length > 0){
-                tile.unitTeam = tile.team;
-                if(config[0] == 1) tile.unitTeam = Team.get(tile.dummyTeam());
-            }
-            if(config.length > 1) tile.boosting = config[1] == 1;
-            if(config.length > 2) tile.unitArmor = Float.intBitsToFloat(config[2]);
-            if(config.length > 3) tile.resetTime = Float.intBitsToFloat(config[3]);
-            if(config.length > 4) tile.dummySize = Float.intBitsToFloat(config[4]);
+            if(config.length < 5) return;
+            tile.unitTeam = tile.team;
+            if(config[0] == 1) tile.unitTeam = Team.get(tile.dummyTeam());
+            tile.boosting = config[1] == 1;
+            tile.unitArmor = Float.intBitsToFloat(config[2]);
+            tile.resetTime = Float.intBitsToFloat(config[3]);
+            tile.dummySize = Float.intBitsToFloat(config[4]);
         });
     }
 
