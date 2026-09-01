@@ -37,7 +37,7 @@ public class TargetDummy extends Block{
         super(name);
 
         update = alwaysUpdateInUnits = true;
-        configurable = logicConfigurable = saveConfig = true;
+        configurable = logicConfigurable = true;
         underBullets = true;
         targetable = false;
 
